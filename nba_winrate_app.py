@@ -1,6 +1,3 @@
-# Install dependencies if needed:
-# pip install nba_api pandas matplotlib seaborn
-
 from nba_api.stats.endpoints import leaguegamefinder
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,9 +7,9 @@ import seaborn as sns
 import warnings
 warnings.filterwarnings('ignore')
 
-# -------------------------
+
 # STEP 1: Load Game Data
-# -------------------------
+
 print("Fetching game data from nba_api...")
 
 gamefinder = leaguegamefinder.LeagueGameFinder(season_nullable='2023-24')
@@ -20,9 +17,9 @@ games = gamefinder.get_data_frames()[0]
 
 print(f"Total games fetched: {len(games)}")
 
-# -------------------------
+
 # STEP 2: Clean & Process
-# -------------------------
+
 # Convert date to datetime
 games['GAME_DATE'] = pd.to_datetime(games['GAME_DATE'])
 
@@ -36,9 +33,9 @@ games['MONTH'] = games['GAME_DATE'].dt.to_period('M')
 win_rates = games.groupby(['TEAM_NAME', 'MONTH'])['WIN'].mean().reset_index()
 win_rates['MONTH'] = win_rates['MONTH'].astype(str)  # for plotting
 
-# -------------------------
+
 # STEP 3: Plotting
-# -------------------------
+
 # Select teams to compare
 selected_teams = ['Golden State Warriors', 'Los Angeles Lakers', 'Boston Celtics']
 
